@@ -1,4 +1,4 @@
-/*! JointJS v0.9.7 - JavaScript diagramming library  2015-12-28 
+/*! JointJS v0.9.7 - JavaScript diagramming library  2016-06-14 
 
 
 This Source Code Form is subject to the terms of the Mozilla Public
@@ -3772,15 +3772,10 @@ joint.dia.Graph = Backbone.Model.extend({
     },
 
     addCells: function(cells, options) {
-
-        options = options || {};
-        options.position = cells.length;
-
         _.each(cells, function(cell) {
-            options.position--;
-            this.addCell(cell, options);
+            this._prepareCell(cell);
         }, this);
-
+        this.get('cells').add(cells, options || {});
         return this;
     },
 

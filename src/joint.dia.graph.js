@@ -291,15 +291,10 @@ joint.dia.Graph = Backbone.Model.extend({
     },
 
     addCells: function(cells, options) {
-
-        options = options || {};
-        options.position = cells.length;
-
         _.each(cells, function(cell) {
-            options.position--;
-            this.addCell(cell, options);
+            this._prepareCell(cell);
         }, this);
-
+        this.get('cells').add(cells, options || {});
         return this;
     },
 
