@@ -322,16 +322,17 @@ joint.dia.Graph = Backbone.Model.extend({
 
         if (cells.length) {
             this.startBatch('add');
+            var maxZIndex = this.maxZIndex();
             _.each(cells, function(cell) {
                 if (cell instanceof Backbone.Model) {
 
                     if (!cell.has('z')) {
-                        cell.set('z', this.maxZIndex() + 1);
+                        cell.set('z', ++maxZIndex);
                     }
 
                 } else if (_.isUndefined(cell.z)) {
 
-                    cell.z = this.maxZIndex() + 1;
+                    cell.z = ++maxZIndex;
                 }
                 this._prepareCell(cell);
             }, this);
