@@ -321,14 +321,21 @@ joint.dia.Graph = Backbone.Model.extend({
     addCells: function(cells, opt) {
 
         if (cells.length) {
-
-            opt.position = cells.length;
-
             this.startBatch('add');
             _.each(cells, function(cell) {
-                opt.position--;
-                this.addCell(cell, opt);
+                if (cell instanceof Backbone.Model) {
+
+                    if (!cell.has('z')) {
+                        cell.set('z', this.maxZIndex() + 1);
+                    }
+
+                } else if (_.isUndefined(cell.z)) {
+
+                    cell.z = this.maxZIndex() + 1;
+                }
+                this._prepareCell(cell);
             }, this);
+            this.get('cells').add(cells, opt || {});
             this.stopBatch('add');
         }
 
