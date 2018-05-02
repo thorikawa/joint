@@ -322,7 +322,7 @@ joint.dia.Graph = Backbone.Model.extend({
         if (cells.length) {
             cells = joint.util.flattenDeep(cells);
             this.startBatch('add');
-            let z = this.maxZIndex() + 1;
+            var z = this.maxZIndex() + 1;
             cells = cells.map(function(cell) {
                 if (cell instanceof Backbone.Model) {
                     if (!cell.has('z')) {
